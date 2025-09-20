@@ -1,0 +1,9 @@
+Date,Invoice No,Customer,Product,HSN Code,Quantity,Price,Taxable Value,GST Rate,State
+2023-07-05,INV-001,ABC Traders,Office Chair,94013000,5,4500,22500,18%,Maharashtra
+2023-07-08,INV-002,XYZ Enterprises,Desk Lamp,94052000,10,1200,12000,12%,Karnataka
+2023-07-12,INV-003,PQR Stores,Printer,84433100,3,8500,25500,18%,Gujarat
+2023-07-15,INV-004,LMN Solutions,Paper (A4),48025600,50,250,12500,5%,Maharashtra
+2023-07-18,INV-005,DEF Mart,Pen Set,96081000,20,150,3000,12%,Tamil Nadu
+2023-07-22,INV-006,GHI Enterprises,Laptop,84713000,2,45000,90000,18%,Delhi
+2023-07-25,INV-007,JKL Traders,Notebooks,48202000,100,50,5000,5%,Maharashtra
+2023-07-28,INV-008,MNO Solutions,Desk Organizer,94249000,15,600,9000,12%,Uttar Pradesh

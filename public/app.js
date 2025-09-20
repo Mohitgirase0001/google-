@@ -1,21 +1,21 @@
 // Base URL for API calls
-const API_BASE_URL = window.location.origin + '/api';
+const API_BASE_URL = window.location.origin;
 
 // Function to upload file
 async function uploadFile(file) {
   const formData = new FormData();
   formData.append('file', file);
-  
+ 
   try {
-    const response = await fetch(`${API_BASE_URL}/upload`, {
+    const response = await fetch(`${API_BASE_URL}/api/upload`, {
       method: 'POST',
       body: formData
     });
-    
+   
     if (!response.ok) {
       throw new Error(`Server returned ${response.status}: ${response.statusText}`);
     }
-    
+   
     const data = await response.json();
     return data;
   } catch (error) {
@@ -23,22 +23,22 @@ async function uploadFile(file) {
     throw error;
   }
 }
-
+ 
 // Function to ask AI assistant
 async function askAssistant(question) {
   try {
-    const response = await fetch(`${API_BASE_URL}/assistant`, {
+    const response = await fetch(`${API_BASE_URL}/api/assistant`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ question })
     });
-    
+   
     if (!response.ok) {
       throw new Error(`Server returned ${response.status}: ${response.statusText}`);
     }
-    
+   
     const data = await response.json();
     return data;
   } catch (error) {
@@ -46,11 +46,13 @@ async function askAssistant(question) {
     throw error;
   }
 }
+
+// Function to generate report - FIXED
 async function generateReport(filingId) {
   try {
     showNotification('Generating report...', 'info');
     
-    // Open report in new tab
+    // Open report in new tab - CORRECTED URL
     window.open(`${API_BASE_URL}/api/report/${filingId}`, '_blank');
     
     showNotification('Report generated successfully!', 'success');
@@ -59,14 +61,16 @@ async function generateReport(filingId) {
     console.error('Report generation error:', error);
   }
 }
+
+// Function to get all filings
 async function getFilings() {
   try {
     const response = await fetch(`${API_BASE_URL}/api/filings`);
-    
+   
     if (!response.ok) {
       throw new Error(`Server returned ${response.status}: ${response.statusText}`);
     }
-    
+   
     const data = await response.json();
     return data;
   } catch (error) {
@@ -74,8 +78,7 @@ async function getFilings() {
     throw error;
   }
 }
-
-
+ 
 // Update your frontend event listeners
 document.addEventListener('DOMContentLoaded', function() {
   // Upload area interaction
@@ -84,23 +87,23 @@ document.addEventListener('DOMContentLoaded', function() {
   fileInput.type = 'file';
   fileInput.accept = '.csv,.xlsx,.xls';
   fileInput.style.display = 'none';
-  
+ 
   uploadArea.appendChild(fileInput);
-  
+ 
   uploadArea.addEventListener('click', function() {
     fileInput.click();
   });
-  
+ 
   fileInput.addEventListener('change', async function() {
     if (fileInput.files.length > 0) {
       try {
         showNotification('Uploading and processing file...', 'info');
         const result = await uploadFile(fileInput.files[0]);
         console.log('Upload successful:', result);
-        
+       
         // Update UI with the result
         showNotification('File uploaded and processed successfully!', 'success');
-        
+       
         // Update the tax summary with result.filing.calculation
         if (result.filing && result.filing.calculation) {
           updateTaxSummary(result.filing.calculation);
@@ -109,33 +112,35 @@ document.addEventListener('DOMContentLoaded', function() {
         showNotification('Error uploading file: ' + error.message, 'error');
       }
     }
-    const generateReportBtn = document.querySelector('.btn-block');
-    if (generateReportBtn && generateReportBtn.textContent.includes('Generate')) {
-      generateReportBtn.addEventListener('click', async function() {
-        try {
-          // Get the latest filing
-          const filings = await getFilings();
-          if (filings.success && filings.filings.length > 0) {
-            const latestFilingId = filings.filings[filings.filings.length - 1].id;
-            await generateReport(latestFilingId);
-          } else {
-            showNotification('No filing data available. Please upload sales data first.', 'warning');
-          }
-        } catch (error) {
-          showNotification('Error generating report: ' + error.message, 'error');
-        }
-      });
-    }
   });
-  
+
+  // Generate Report button functionality - MOVED OUTSIDE OF FILE UPLOAD HANDLER
+  const generateReportBtn = document.querySelector('.btn-block');
+  if (generateReportBtn && generateReportBtn.textContent.includes('Generate')) {
+    generateReportBtn.addEventListener('click', async function() {
+      try {
+        // Get the latest filing
+        const filings = await getFilings();
+        if (filings.success && filings.filings.length > 0) {
+          const latestFilingId = filings.filings[filings.filings.length - 1].id;
+          await generateReport(latestFilingId);
+        } else {
+          showNotification('No filing data available. Please upload sales data first.', 'warning');
+        }
+      } catch (error) {
+        showNotification('Error generating report: ' + error.message, 'error');
+      }
+    });
+  }
+ 
   // AI Assistant functionality
   const askButton = document.querySelector('.card:last-child .btn');
   const questionInput = document.querySelector('.card:last-child input[type="text"]');
-  
+ 
   if (askButton && questionInput) {
     // Handle button click
     askButton.addEventListener('click', handleAssistantQuestion);
-    
+   
     // Also handle Enter key in the input field
     questionInput.addEventListener('keypress', function(e) {
       if (e.key === 'Enter') {
@@ -143,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
-  
+ 
   async function handleAssistantQuestion() {
     const question = questionInput.value.trim();
     if (question) {
@@ -151,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function() {
         showNotification('Asking AI assistant...', 'info');
         const response = await askAssistant(question);
         showNotification(`AI Assistant: ${response.answer}`, 'info');
-        
+       
         // Clear the input field after successful question
         questionInput.value = '';
       } catch (error) {
@@ -161,9 +166,6 @@ document.addEventListener('DOMContentLoaded', function() {
       showNotification('Please enter a question', 'warning');
     }
   }
-  
-  // Load deadlines on page load
-  loadDeadlines();
 });
 
 // The rest of your functions (updateTaxSummary, showNotification, etc.) remain the same
@@ -173,30 +175,30 @@ function updateTaxSummary(calculation) {
   if (totalSalesEl) {
     totalSalesEl.textContent = `₹${calculation.totalSales.toLocaleString()}`;
   }
-  
+ 
   const cgstEl = document.querySelector('.summary-item:nth-child(2) .summary-value');
   if (cgstEl) {
     cgstEl.textContent = `₹${calculation.cgst.toFixed(2)}`;
   }
-  
+ 
   const sgstEl = document.querySelector('.summary-item:nth-child(3) .summary-value');
   if (sgstEl) {
     sgstEl.textContent = `₹${calculation.sgst.toFixed(2)}`;
   }
-  
+ 
   const totalPayableEl = document.querySelector('.summary-item:nth-child(4) .summary-value');
   if (totalPayableEl) {
     totalPayableEl.textContent = `₹${calculation.totalTax.toFixed(2)}`;
   }
-  
+ 
   console.log('Tax calculation:', calculation);
 }
-
+ 
 function showNotification(message, type = 'info') {
   // Remove any existing notifications first
   const existingNotifications = document.querySelectorAll('.notification');
   existingNotifications.forEach(notification => notification.remove());
-  
+ 
   // Create notification element
   const notification = document.createElement('div');
   notification.className = `notification notification-${type}`;
@@ -205,7 +207,7 @@ function showNotification(message, type = 'info') {
     <span>${message}</span>
     <button onclick="this.parentElement.remove()">&times;</button>
   `;
-  
+ 
   // Add styles if not already added
   if (!document.querySelector('#notification-styles')) {
     const styles = document.createElement('style');
@@ -245,9 +247,9 @@ function showNotification(message, type = 'info') {
     `;
     document.head.appendChild(styles);
   }
-  
+ 
   document.body.appendChild(notification);
-  
+ 
   // Auto remove after 5 seconds
   setTimeout(() => {
     if (notification.parentElement) {
