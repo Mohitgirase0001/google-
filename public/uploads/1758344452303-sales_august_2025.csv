@@ -1,0 +1,6 @@
+date,item,hsn_code,amount,buyer_state,seller_state
+01-08-2025,Books,4901,1000,Maharashtra,Maharashtra
+02-08-2025,Medicine,3001,2500,Karnataka,Maharashtra
+03-08-2025,AC Units,8415,35000,Gujarat,Maharashtra
+04-08-2025,Notebooks,4901,500,Maharashtra,Maharashtra
+05-08-2025,Laptop,8471,45000,Tamil Nadu,Maharashtra
