@@ -1,0 +1,822 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GST Payment Guide - Vyapar Sahayak</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --gray: #7f8c8d;
+            --light-gray: #bdc3c7;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 20px 0;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo i {
+            font-size: 2.5rem;
+        }
+        
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .back-button {
+            background: white;
+            color: var(--primary);
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: var(--light);
+            transform: translateY(-2px);
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .steps-container {
+            counter-reset: step-counter;
+        }
+        
+        .step {
+            display: flex;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .step-description {
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+        
+        .step-image {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 10px;
+        }
+        
+        .important-note {
+            background: rgba(231, 76, 60, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+        
+        .tip {
+            background: rgba(52, 152, 219, 0.1);
+            border-left: 4px solid var(--secondary);
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+        
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .payment-method {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .payment-method i {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .payment-method h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .step {
+                flex-direction: column;
+            }
+            
+            .step-number {
+                margin-bottom: 15px;
+                margin-right: 0;
+            }
+            
+            .payment-methods {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <div class="logo">
+                    <i class="fas fa-handshake"></i>
+                    <div>
+                        <h1>Vyapar Sahayak</h1>
+                        <div>GST Payment Guide</div>
+                    </div>
+                </div>
+                <a href="/" class="back-button">
+                    <i class="fas fa-arrow-left"></i> Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <i class="fas fa-rupee-sign"></i>
+                    Complete GST Payment Guide
+                </h2>
+            </div>
+            
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Login to GST Portal</h3>
+                        <p class="step-description">
+                            Visit the official GST portal (<a href="https://www.gst.gov.in" target="_blank">gst.gov.in</a>) 
+                            and login with your credentials using your username and password.
+                        </p>
+                        <div class="tip">
+                            <i class="fas fa-lightbulb"></i> 
+                            <strong>Tip:</strong> Make sure you have your GSTIN username and password handy. 
+                            Use the forgot password option if you've forgotten your login details.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Navigate to Payments Section</h3>
+                        <p class="step-description">
+                            After logging in, go to the 'Services' menu, select 'Payments' and then click on 'Create Challan'.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Fill Challan Details</h3>
+                        <p class="step-description">
+                            Select the type of tax (CGST, SGST, IGST, Cess) and enter the amount for each tax head. 
+                            Verify all details before proceeding.
+                        </p>
+                        <div class="important-note">
+                            <i class="fas fa-exclamation-circle"></i> 
+                            <strong>Important:</strong> Double-check the amounts to avoid underpayment or overpayment. 
+                            Underpayment may attract interest and penalties.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Choose Payment Method</h3>
+                        <p class="step-description">
+                            Select your preferred payment method from the available options. You can pay through:
+                        </p>
+                        
+                        <div class="payment-methods">
+                            <div class="payment-method">
+                                <i class="fas fa-university"></i>
+                                <h3>Net Banking</h3>
+                                <p>Pay directly through your bank's net banking portal</p>
+                            </div>
+                            
+                            <div class="payment-method">
+                                <i class="fas fa-credit-card"></i>
+                                <h3>Credit/Debit Card</h3>
+                                <p>Use your Visa, MasterCard, or RuPay card</p>
+                            </div>
+                            
+                            <div class="payment-method">
+                                <i class="fas fa-mobile-alt"></i>
+                                <h3>UPI</h3>
+                                <p>Pay using UPI apps like Google Pay, PhonePe, etc.</p>
+                            </div>
+                            
+                            <div class="payment-method">
+                                <i class="fas fa-building"></i>
+                                <h3>NEFT/RTGS</h3>
+                                <p>Make payment through NEFT or RTGS from your bank</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Make Payment</h3>
+                        <p class="step-description">
+                            Complete the payment process through your chosen method. You will be redirected to your bank's 
+                            payment gateway for authentication and completion.
+                        </p>
+                        <div class="tip">
+                            <i class="fas fa-lightbulb"></i> 
+                            <strong>Tip:</strong> Keep your debit/credit card, net banking details, or UPI app ready 
+                            before starting the payment process.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Download Payment Receipt</h3>
+                        <p class="step-description">
+                            After successful payment, download and save the Challan (CPIN) and payment receipt for your records. 
+                            This serves as proof of payment.
+                        </p>
+                        <div class="important-note">
+                            <i class="fas fa-exclamation-circle"></i> 
+                            <strong>Important:</strong> Always keep a copy of the payment receipt for future reference 
+                            and during GST audits.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">7</div>
+                    <div class="step-content">
+                        <h3 class="step-title">File Your GST Return</h3>
+                        <p class="step-description">
+                            After making the payment, proceed to file your GST return (GSTR-3B). The payment will be 
+                            automatically reflected in your return.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Important Points to Remember
+                </h2>
+            </div>
+            
+            <ul style="padding-left: 20px; color: var(--gray);">
+                <li style="margin-bottom: 10px;">GST payments are due by the 20th of the following month</li>
+                <li style="margin-bottom: 10px;">Late payments attract 18% interest per annum</li>
+                <li style="margin-bottom: 10px;">Keep your Challan number (CPIN) safe for future reference</li>
+                <li style="margin-bottom: 10px;">Reconcile your books with GST payments regularly</li>
+                <li style="margin-bottom: 10px;">Maintain proper documentation of all payments for at least 6 years</li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <i class="fas fa-headset"></i>
+                    Need Help?
+                </h2>
+            </div>
+            
+            <p style="color: var(--gray); margin-bottom: 15px;">
+                If you face any issues during GST payment, you can:
+            </p>
+            
+            <ul style="padding-left: 20px; color: var(--gray); margin-bottom: 20px;">
+                <li style="margin-bottom: 10px;">Contact GST Helpdesk: 0120-4888999</li>
+                <li style="margin-bottom: 10px;">Raise a ticket on the GST portal</li>
+                <li style="margin-bottom: 10px;">Contact your bank for payment-related issues</li>
+                <li style="margin-bottom: 10px;">Consult a GST practitioner for complex issues</li>
+            </ul>
+            
+            <a href="/" class="back-button" style="display: inline-flex;">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+        </div>
+    </div>
+    <!-- AI Chatbot Container -->
+<div id="chatbot-container" class="chatbot-container">
+    <div class="chatbot-header">
+        <h3><i class="fas fa-robot"></i> Tax Assistant</h3>
+        <button id="chatbot-close" class="chatbot-close">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div id="chatbot-messages" class="chatbot-messages">
+        <div class="message bot-message">
+            <div class="message-content">
+                Hi there! I'm your GST assistant. I can help you with tax-related questions, 
+                payment procedures, deadlines, and compliance requirements. What would you like to know?
+            </div>
+        </div>
+    </div>
+    <div class="chatbot-input">
+        <input type="text" id="chatbot-input" placeholder="Ask about GST payments, deadlines, procedures...">
+        <button id="chatbot-send">
+            <i class="fas fa-paper-plane"></i>
+        </button>
+    </div>
+</div>
+
+<!-- Chatbot Toggle Button -->
+<button id="chatbot-toggle" class="chatbot-toggle">
+    <i class="fas fa-robot"></i>
+    <span>Tax Assistant</span>
+</button>
+
+<style>
+    /* Chatbot Styles */
+    .chatbot-toggle {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 15px 20px;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        z-index: 1000;
+        transition: all 0.3s ease;
+    }
+    
+    .chatbot-toggle:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .chatbot-container {
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        width: 350px;
+        height: 500px;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        z-index: 1000;
+        overflow: hidden;
+        transform: translateY(100%);
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+    
+    .chatbot-container.open {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    
+    .chatbot-header {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        color: white;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .chatbot-header h3 {
+        margin: 0;
+        font-size: 1.1rem;
+    }
+    
+    .chatbot-close {
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        font-size: 1.2rem;
+    }
+    
+    .chatbot-messages {
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .message {
+        display: flex;
+        max-width: 80%;
+    }
+    
+    .user-message {
+        align-self: flex-end;
+    }
+    
+    .bot-message {
+        align-self: flex-start;
+    }
+    
+    .message-content {
+        padding: 12px 15px;
+        border-radius: 18px;
+        line-height: 1.4;
+    }
+    
+    .user-message .message-content {
+        background: var(--secondary);
+        color: white;
+        border-bottom-right-radius: 5px;
+    }
+    
+    .bot-message .message-content {
+        background: var(--light);
+        color: var(--dark);
+        border-bottom-left-radius: 5px;
+    }
+    
+    .chatbot-input {
+        display: flex;
+        padding: 15px;
+        border-top: 1px solid var(--light-gray);
+        gap: 10px;
+    }
+    
+    .chatbot-input input {
+        flex: 1;
+        padding: 12px 15px;
+        border: 1px solid var(--light-gray);
+        border-radius: 25px;
+        outline: none;
+    }
+    
+    .chatbot-input input:focus {
+        border-color: var(--secondary);
+    }
+    
+    .chatbot-input button {
+        background: var(--secondary);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .typing-indicator {
+        display: flex;
+        gap: 5px;
+        padding: 10px 15px;
+    }
+    
+    .typing-dot {
+        width: 8px;
+        height: 8px;
+        background: var(--gray);
+        border-radius: 50%;
+        animation: typingAnimation 1.4s infinite ease-in-out;
+    }
+    
+    .typing-dot:nth-child(1) { animation-delay: 0s; }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    
+    @keyframes typingAnimation {
+        0%, 60%, 100% { transform: translateY(0); }
+        30% { transform: translateY(-5px); }
+    }
+    
+    @media (max-width: 768px) {
+        .chatbot-container {
+            width: 90%;
+            right: 5%;
+            left: 5%;
+        }
+    }
+</style>
+
+    <footer>
+        <div class="container">
+            <p>© 2023 Vyapar Sahayak - AI Compliance Agent for Small Businesses</p>
+            <p>Disclaimer: This guide is for informational purposes only. Please verify with official GST sources for accurate information.</p>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM elements
+            const chatbotToggle = document.getElementById('chatbot-toggle');
+            const chatbotContainer = document.getElementById('chatbot-container');
+            const chatbotClose = document.getElementById('chatbot-close');
+            const chatbotMessages = document.getElementById('chatbot-messages');
+            const chatbotInput = document.getElementById('chatbot-input');
+            const chatbotSend = document.getElementById('chatbot-send');
+            
+            // Toggle chatbot visibility
+            chatbotToggle.addEventListener('click', function() {
+                chatbotContainer.classList.toggle('open');
+            });
+            
+            chatbotClose.addEventListener('click', function() {
+                chatbotContainer.classList.remove('open');
+            });
+            
+            // Send message function
+            function sendMessage() {
+                const message = chatbotInput.value.trim();
+                if (message === '') return;
+                
+                // Add user message to chat
+                addMessage(message, 'user');
+                chatbotInput.value = '';
+                
+                // Show typing indicator
+                showTypingIndicator();
+                
+                // Process message and get response
+                setTimeout(() => {
+                    removeTypingIndicator();
+                    const response = getAIResponse(message);
+                    addMessage(response, 'bot');
+                }, 1000);
+            }
+            
+            // Send message on button click or Enter key
+            chatbotSend.addEventListener('click', sendMessage);
+            chatbotInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            // Add message to chat
+            function addMessage(text, sender) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${sender}-message`;
+                
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'message-content';
+                contentDiv.textContent = text;
+                
+                messageDiv.appendChild(contentDiv);
+                chatbotMessages.appendChild(messageDiv);
+                
+                // Scroll to bottom
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            }
+            
+            // Show typing indicator
+            function showTypingIndicator() {
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'message bot-message typing-indicator';
+                typingDiv.id = 'typing-indicator';
+                
+                for (let i = 0; i < 3; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'typing-dot';
+                    typingDiv.appendChild(dot);
+                }
+                
+                chatbotMessages.appendChild(typingDiv);
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            }
+            
+            // Remove typing indicator
+            function removeTypingIndicator() {
+                const typingIndicator = document.getElementById('typing-indicator');
+                if (typingIndicator) {
+                    typingIndicator.remove();
+                }
+            }
+            
+            // AI Response logic
+            function getAIResponse(message) {
+                const lowerMessage = message.toLowerCase();
+                
+                // GST Payment Questions
+                if (lowerMessage.includes('how to pay') || lowerMessage.includes('payment method')) {
+                    return "You can pay GST through multiple methods: 1) Net Banking 2) Credit/Debit Card 3) UPI 4) NEFT/RTGS. Login to GST portal, create a challan, and choose your preferred payment method.";
+                }
+                
+                if (lowerMessage.includes('deadline') || lowerMessage.includes('due date')) {
+                    return "GSTR-1 is due by the 10th, and GSTR-3B by the 20th of the following month. For annual returns (GSTR-9), the deadline is December 31st of the following financial year.";
+                }
+                
+                if (lowerMessage.includes('penalty') || lowerMessage.includes('late')) {
+                    return "Late filing attracts a penalty of ₹50 per day (₹20 for nil returns) and interest at 18% per annum on the tax amount due. It's best to file on time to avoid these charges.";
+                }
+                
+                if (lowerMessage.includes('challan') || lowerMessage.includes('cpin')) {
+                    return "A challan (CPIN) is generated when you initiate a GST payment. It contains a unique number that helps track your payment. Always save your challan number for future reference.";
+                }
+                
+                if (lowerMessage.includes('itc') || lowerMessage.includes('input tax')) {
+                    return "Input Tax Credit allows you to reduce your tax liability by claiming credit for taxes paid on purchases. You need valid invoices and the supplier must have filed their returns for you to claim ITC.";
+                }
+                
+                // GST Registration Questions
+                if (lowerMessage.includes('register') || lowerMessage.includes('gstin')) {
+                    return "You can register for GST online at the GST portal (gst.gov.in). You'll need PAN, business details, bank account information, and proof of business address. The process typically takes 2-6 working days.";
+                }
+                
+                if (lowerMessage.includes('threshold') || lowerMessage.includes('limit')) {
+                    return "GST registration is mandatory if your annual turnover exceeds ₹20 lakhs (₹10 lakhs for NE and hill states). For service providers, the limit is ₹20 lakhs across India.";
+                }
+                
+                // General Tax Questions
+                if (lowerMessage.includes('rate') || lowerMessage.includes('gst rate')) {
+                    return "GST has four primary tax slabs: 0% (essential items), 5% (common use items), 12% and 18% (standard rates), and 28% (luxury items). Some goods like petroleum products are still under the old tax system.";
+                }
+                
+                if (lowerMessage.includes('hsn') || lowerMessage.includes('sac')) {
+                    return "HSN codes are used for goods classification, while SAC codes are for services. You need to include the appropriate code on your invoices based on your products/services. Most businesses use 4-digit HSN codes.";
+                }
+                
+                if (lowerMessage.includes('composition') || lowerMessage.includes('scheme')) {
+                    return "The composition scheme is for small businesses with turnover up to ₹1.5 crore. It offers simpler compliance but you cannot claim ITC. Tax rates are lower: 1% for manufacturers, 5% for restaurants, 6% for other services.";
+                }
+                
+                // Procedure Questions
+                if (lowerMessage.includes('file return') || lowerMessage.includes('gstr')) {
+                    return "To file GST returns: 1) Login to GST portal 2) Go to Returns Dashboard 3) Select the return period 4) Enter details 5) Validate and submit 6) Pay tax if any 7) File return with DSC/EVC.";
+                }
+                
+                if (lowerMessage.includes('document') || lowerMessage.includes('required')) {
+                    return "For GST filing, keep these documents ready: Sales/purchase invoices, debit/credit notes, export/import documents, advance receipts, and ITC documents. Maintain records for at least 6 years.";
+                }
+                
+                if (lowerMessage.includes('help') || lowerMessage.includes('support')) {
+                    return "You can contact GST helpdesk at 0120-4888999 or helpdesk@gst.gov.in. For technical issues with the portal, use the 'Help' section on the GST portal to raise tickets.";
+                }
+                
+                // Default response for unrecognized queries
+                return "I'm here to help with GST-related queries. You can ask me about payment procedures, filing deadlines, registration, tax rates, compliance requirements, or any other GST-related topic. What specific information do you need?";
+            }
+            
+            // Predefined questions for quick access
+            const quickQuestions = [
+                "How to pay GST online?",
+                "What is the deadline for GSTR-3B?",
+                "How to claim Input Tax Credit?",
+                "What are the GST penalty rates?",
+                "How to register for GST?"
+            ];
+            
+            // Add quick question buttons (optional)
+            const quickQuestionsContainer = document.createElement('div');
+            quickQuestionsContainer.style.padding = '10px 15px';
+            quickQuestionsContainer.style.borderTop = '1px solid var(--light-gray)';
+            quickQuestionsContainer.style.display = 'flex';
+            quickQuestionsContainer.style.flexWrap = 'wrap';
+            quickQuestionsContainer.style.gap = '8px';
+            
+            quickQuestions.forEach(question => {
+                const button = document.createElement('button');
+                button.textContent = question;
+                button.style.background = 'var(--light)';
+                button.style.border = 'none';
+                button.style.borderRadius = '15px';
+                button.style.padding = '8px 12px';
+                button.style.fontSize = '0.8rem';
+                button.style.cursor = 'pointer';
+                button.style.color = 'var(--dark)';
+                
+                button.addEventListener('click', function() {
+                    chatbotInput.value = question;
+                    sendMessage();
+                });
+                
+                quickQuestionsContainer.appendChild(button);
+            });
+            
+            chatbotMessages.parentNode.insertBefore(quickQuestionsContainer, chatbotInput);
+        });
+    </script>
+</body>
+</html>

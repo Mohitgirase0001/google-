@@ -188,17 +188,12 @@ async function askGemini(question, context = '') {
   }
 }
 // Generate PDF report endpoint
-// Generate PDF report endpoint
 app.get('/api/report/:filingId', (req, res) => {
   try {
-    console.log('Report generation requested for filing ID:', req.params.filingId);
-    console.log('Available filings:', userData.filings.map(f => f.id));
-    
     const filingId = parseInt(req.params.filingId);
     const filing = userData.filings.find(f => f.id === filingId);
-   
+    
     if (!filing) {
-      console.log('Filing not found:', filingId);
       return res.status(404).json({ error: 'Filing not found' });
     }
     

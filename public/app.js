@@ -257,3 +257,39 @@ function showNotification(message, type = 'info') {
     }
   }, 5000);
 }
+
+
+
+
+const express = require('express');
+const path = require('path');
+const app = express();
+ 
+// Middleware for form data + JSON
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+ 
+// Serve static files (CSS, JS, images)
+app.use(express.static(path.join(__dirname, 'public')));
+ 
+// GET route for settings page
+app.get('/settings', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'settings.html'));
+});
+ 
+// POST route for saving settings
+app.post('/settings', (req, res) => {
+  console.log('Received settings:', req.body);
+ 
+  // Example: Save settings to a JSON file (instead of a DB)
+  // You can replace this with DB code if needed
+  const fs = require('fs');
+  fs.writeFileSync('user-settings.json', JSON.stringify(req.body, null, 2));
+ 
+  res.send('Settings saved successfully!');
+});
+ 
+// Start server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+ 

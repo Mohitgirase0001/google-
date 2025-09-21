@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Vyapar Sahayak</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --gray: #7f8c8d;
+            --light-gray: #bdc3c7;
+        }
+       
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+       
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+       
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+       
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 20px 0;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+       
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+       
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+       
+        .logo i {
+            font-size: 2.5rem;
+        }
+       
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+       
+        .tagline {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+       
+        /* Navigation styling - matching index.html */
+        .main-nav {
+            width: 100%;
+            background-color: white;
+            border-radius: 8px;
+            margin: 15px auto;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+        }
+       
+        .nav-links {
+            display: flex;
+            list-style: none;
+            padding: 0;
+        }
+       
+        .nav-links li {
+            flex: 1;
+            text-align: center;
+        }
+       
+        .nav-links a {
+            display: block;
+            padding: 15px 0;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+       
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--secondary);
+            border-bottom: 3px solid var(--secondary);
+        }
+       
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+        }
+       
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+       
+        .card-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+       
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+       
+        .btn:hover {
+            background-color: var(--primary);
+            transform: translateY(-2px);
+        }
+       
+        .btn-block {
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+       
+        /* Team Section Styles */
+        .team-section {
+            text-align: center;
+            margin: 30px 0;
+        }
+       
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+       
+        .team-member {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+       
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+       
+        .member-image {
+            height: 250px;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 5rem;
+        }
+       
+        .member-info {
+            padding: 25px;
+        }
+       
+        .member-name {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+       
+        .member-role {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+       
+        .member-desc {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+       
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+       
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--light);
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+       
+        .social-links a:hover {
+            background-color: var(--secondary);
+            color: white;
+        }
+       
+        .mission-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 50px 0;
+            border-radius: 12px;
+            margin: 40px 0;
+            text-align: center;
+        }
+       
+        .mission-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+       
+        .mission-section p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+       
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+       
+        @media (max-width: 768px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+           
+            .nav-links {
+                flex-direction: column;
+            }
+           
+            .main-nav {
+                margin: 15px;
+                width: auto;
+            }
+           
+            .logo-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="logo-container">
+        <div class="logo">
+          <i class="fas fa-handshake"></i>
+          <h1>Vyapar Sahayak</h1>
+        </div>
+        <div class="tagline">AI Compliance Agent for Small Businesses</div>
+      </div>
+    </div>
+  </header>
+ 
+  <!-- Navigation matching index.html structure -->
+  <div class="main-nav">
+    <ul class="nav-links">
+      <li><a href="index.html"><i class="fas fa-home"></i> Dashboard</a></li>
+      <li><a href="#"><i class="fas fa-file-invoice"></i> GST Filing</a></li>
+      <li><a href="#"><i class="fas fa-calendar-alt"></i> Deadlines</a></li>
+      <li><a href="#"><i class="fas fa-chart-line"></i> Reports</a></li>
+      <li><a href="settings.html" class="active"><i class="fas fa-users"></i> About Us</a></li>
+    </ul>
+  </div>
+ 
+  <div class="container">
+    <div class="team-section">
+      <h2>Meet Our Team</h2>
+      <p>Passionate experts dedicated to simplifying compliance for small businesses</p>
+     
+      <div class="team-grid">
+        <!-- Team Member 1 -->
+        <div class="team-member">
+          <div class="member-image">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="member-info">
+            <h3 class="member-name">Mohit Rajput</h3>
+            <p class="member-role">Aspiring Data Scientist</p>
+            <p class="member-desc">Second Year Student at MPSTME</p>
+            <div class="social-links">
+              <a href="https://www.linkedin.com/in/mohit-girase-932127290/"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+       
+        <!-- Team Member 2 -->
+        <div class="team-member">
+          <div class="member-image">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="member-info">
+            <h3 class="member-name">Anshul Gokhale</h3>
+            <p class="member-role">Aspiring AIML Developer</p>
+            <p class="member-desc">Second Year Student at MPSTME</p>
+            <div class="social-links">
+              <a href="https://www.linkedin.com/in/anshul-gokhale-922202383/"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+       
+        <!-- Team Member 3 -->
+        <div class="team-member">
+          <div class="member-image">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="member-info">
+            <h3 class="member-name">Vedant Kunte</h3>
+            <p class="member-role">Aspiring Web Developer</p>
+            <p class="member-desc">Second Year Student at MPSTME</p>
+            <div class="social-links">
+              <a href="https://www.linkedin.com/in/vedant-kunte-7a239236a/"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+    <div class="mission-section">
+      <h2>Our Mission</h2>
+      <p>At Vyapar Sahayak, we believe that small businesses should focus on growth, not get bogged down by complex compliance procedures. Our AI-powered platform simplifies GST filing, tax calculations, and regulatory compliance, making it accessible to entrepreneurs without specialized accounting knowledge.</p>
+    </div>
+   
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title"><i class="fas fa-history"></i> Our Story</h2>
+      </div>
+      <p>Vyapar Sahayak was founded by three passionate students who recognized the immense challenges small businesses face with tax compliance.</p>
+      <p>Our mission is to simplify the complex world of taxation through AI-powered tools that make compliance accessible and stress-free. </p>
+      <p> We're dedicated to helping small companies focus on growth while we handle the complexities of GST filing and regulatory requirements.</p>
+    </div>
+  </div>
+ 
+  <footer>
+    <div class="container">
+      <p>© 2023 Vyapar Sahayak - AI Compliance Agent for Small Businesses</p>
+      <p>Simplifying compliance so you can focus on growth</p>
+    </div>
+  </footer>
+</body>
+</html>
