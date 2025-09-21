@@ -369,7 +369,7 @@
                 <li><a href="index.html" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
                 <li><a href="gst-payment-guide.html"><i class="fas fa-file-invoice"></i> GST Filing</a></li>
                 <li><a href="deadline.html"><i class="fas fa-calendar-alt"></i> Deadlines</a></li>
-                
+                <li><a href="about-us.html"><i class="fas fa-users"></i> About Us</a></li>
             </ul>
         </nav>
 
@@ -512,9 +512,7 @@
                                 <i class="fas fa-file-invoice"></i>
                             </div>
                             <div class="timeline-content">
-                                <div class="timeline-date">February 20, 2026
-
-                                </div>
+                                <div class="timeline-date">February 20, 2026</div>
                                 <p>GSTR-3B filed for January 2026</p>
                             </div>
                         </div>
@@ -563,14 +561,17 @@
                 });
             });
             
-            // Nav link interactions
+            // Update active navigation link based on current page
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
             const navLinks = document.querySelectorAll('.nav-links a');
+            
             navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    navLinks.forEach(l => l.classList.remove('active'));
-                    this.classList.add('active');
-                });
+                const linkPage = link.getAttribute('href');
+                if (linkPage === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
             });
         });
     </script>
