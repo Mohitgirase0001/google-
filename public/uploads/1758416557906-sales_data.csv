@@ -1,0 +1,6 @@
+date,product,amount,taxRate,state
+2023-03-01,Product A,5000,12,Home State
+2023-03-05,Product B,8000,18,Home State
+2023-03-10,Product C,12000,12,Maharashtra
+2023-03-15,Product A,7000,12,Home State
+2023-03-20,Product D,15000,18,Telangana
